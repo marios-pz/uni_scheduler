@@ -3,7 +3,7 @@
 Σε ενημερώνει κάθε μία ώρα τα ενεργά μαθήματα σε όλα τα εξάμηνα και τις αίθουσες τους ώστε να μην μυρίζεις τα νύχια σου. 🙂
 
 
-Dockerized Mongodb application thats sends every 1 hour any active course from any semester
+Dockerized MongoDB application thats sends every 1 hour any active course from any semester
 
 TODO:
 * Support All semesters

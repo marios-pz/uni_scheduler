@@ -1,4 +1,13 @@
-# uni_scheduler
-A dockerized mongodb application thats sends every 1 hour any active course from any semester (based on Uniwa schedule)
+# University of West Attica Scheduler 
+
+Σε ενημερώνει κάθε μία ώρα τα ενεργά μαθήματα σε όλα τα εξάμηνα και τις αίθουσες τους ώστε να μην μυρίζεις τα νύχια σου. 🙂
+
+
+Dockerized Mongodb application thats sends every 1 hour any active course from any semester
+
+TODO:
+* Support All semesters
+* WebApp version
+* Phone Notifier
 
 ![docker](https://i.morioh.com/4ced3d48df.png)

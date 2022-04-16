@@ -1,4 +1,6 @@
 from pymongo import MongoClient
+import certifi
+ca = certifi.where()
 
 def get_db(db_link, db_name):
     """
@@ -6,7 +8,7 @@ def get_db(db_link, db_name):
         db_link: mongodb link with credentials
         db_name: name of the database
     """
-    client = MongoClient(db_link)
+    client = MongoClient(db_link, tlsCAFile=ca)
     return client[db_name]
 
 

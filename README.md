@@ -5,6 +5,5 @@
 TODO:
 * Support All semesters
 * WebApp version
-* Phone Notifier
 
 ![docker](https://i.morioh.com/4ced3d48df.png)

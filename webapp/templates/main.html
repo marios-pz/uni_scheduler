@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang=”en” manifest="/cache.appcache">
+    <head>
+        <title> Uniwa Scheduler </title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+        <link rel="stylesheet" href="../static/style.css">
+    </head>
+    <body onload="startTime()">
+        <p class="logo">Uniwa Scheduler <img src="../static/ΕΜΒΛΗΜΑ-ΕΓΧΡΩΜΟ.png"></p>
+        <div id="background">
+            {% block content %}
+                {% if day not in ['Saturday', 'Sunday'] %}
+                    <p class="question">Τι μαθήματα υπάρχουν αυτή την στιγμή?</p>
+                    <p id="clock"></p>
+                {% else %}
+                    {{ pass }}
+                {% endif %}
+            {% endblock content %}
+
+            <div id="active-courses">
+
+                <!--
+                    <ul>
+                        <li> Lesson 1 </li>
+                        <li> Lesson 2 </li>
+                        <li> Lesson 3 </li>
+                        <li> Lesson ... </li>
+                        <li> Lesson n </li>
+                    </ul>
+                -->
+
+                {% if day not in ['Saturday', 'Sunday'] %}
+                    <ul>
+                    {% for lesson in lessons %}
+                        <li style="list-style-type: none;" list-style-type: upper-roman;> - {{ lesson }}</li:>
+                    {% endfor %}
+                    </ul>
+                {% else %}
+                    <p class="question" style="text-align: center">Είναι Σαββατοκύριακο συνάδελφε.<br />Καλά να περνάς.</p>
+                {% endif %}
+
+            </div>
+        </div>
+    </body>
+    <script src="../static/script.js"></script>
+    <bottom>
+        @created by owner of the repo, logo credits goes to University of West Attica
+    </bottom>
+</html>

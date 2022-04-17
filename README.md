@@ -11,6 +11,7 @@ TODO:
 When the database is ready, CLI version will be deprecated and renamed to `cli`
 Both of course will be share one MongoDB.
 
+(DISCLAIMER: Actual website is in Greek, this is HTML edited)
 ![image](https://user-images.githubusercontent.com/30930688/163730102-f6919906-e34c-41f0-b2ce-a6e071dfe30b.png)
 
 ![docker](https://i.morioh.com/4ced3d48df.png)

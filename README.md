@@ -6,4 +6,8 @@ TODO:
 * Support All semesters
 * WebApp version (Completed)
 
+
+When the database is ready, CLI version will be deprecated and renamed to `cli`
+Both of course will be share one MongoDB.
+
 ![docker](https://i.morioh.com/4ced3d48df.png)

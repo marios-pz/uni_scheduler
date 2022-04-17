@@ -7,7 +7,7 @@ TODO:
 * WebApp version (Completed)
 * Support All semesters
 
-When the database is ready both applications will share the same mongodb
+When the database is ready both applications will share the same mongodb <br />
 (DISCLAIMER: Actual website is in Greek, this is HTML edited)
 ![image](https://user-images.githubusercontent.com/30930688/163730102-f6919906-e34c-41f0-b2ce-a6e071dfe30b.png)
 

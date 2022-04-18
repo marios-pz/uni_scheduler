@@ -11,26 +11,41 @@ from time import sleep
 
 from random import randint
 
-
 from calendar import day_name
 
-from .courses import (
+from data import (
     PORT,
-    SEMESTERS, 
     PROGRAM,
     IP,
-    PASSWORD,
     USERNAME,
     PASSWORD
 )
 
-from .database import (
-    create_tmp_clt, 
-    get_db
-)
+from pymongo import MongoClient
+import certifi
+
+ca = certifi.where()
+
+
+def get_db(db_link, db_name):
+    """
+        Searches for X database else it creates one
+        db_link: mongodb link with credentials
+        db_name: name of the database
+    """
+    client = MongoClient(db_link, tlsCAFile=ca)
+    return client[db_name]
+
+
+def create_tmp_clt(db):
+    """
+        creates a dummie collection on the database that has been passed
+    """
+    return db['temp']
+
 
 class Scheduler:
-    
+
     def __init__(self) -> None:
         self.db = self.create_table()
         self.now = datetime.datetime.now()
@@ -41,7 +56,7 @@ class Scheduler:
         self.minute = self.now.minute
         self.second = self.now.second
         self.wd = day_name[self.now.weekday()]
-        
+
     @classmethod
     def create_table(self) -> pymongo.collection.Collection:
         """
@@ -53,18 +68,15 @@ class Scheduler:
             database_name = 'temp_data'
             database = get_db(f'mongodb://{USERNAME}:{PASSWORD}@{IP}:{PORT}', database_name)
             collection = create_tmp_clt(database)
-            collection.insert_many(SEMESTERS)
 
         except pymongo.errors.BulkWriteError:
             # print("Collection duplicate found, creating a clone.")
-            database_name = f'temp_data{randint(0,128)}'
+            database_name = f'temp_data{randint(0, 128)}'
             database = get_db(f'mongodb://{USERNAME}:{PASSWORD}@{IP}:{PORT}', database_name)
             collection = create_tmp_clt(database)
-            collection.insert_many(SEMESTERS)
-            
+
         # print(collection.find_one())
         return collection
-            
 
     def get_time(self) -> None:
         self.now = datetime.datetime.now()
@@ -75,36 +87,37 @@ class Scheduler:
         self.minute = self.now.minute
         self.second = self.now.second
         self.wd = day_name[self.now.weekday()]
-        
-    
+
     def print_status(self) -> None:
         self.get_time()
         # self.wd = 'Monday' # Debugging
         print(f"Σήμερα είναι {self.wd} {self.day}/{self.month}/{self.year}")
-        
-    
+        print(f"Ώρα {self.hour}:{self.minute}:{self.second}")
+
     def grab_lesson(self) -> None:
-        
+
         if self.wd not in ['Saturday', 'Sunday']:
-            
+
             temp_dict = PROGRAM[f"{str(self.hour)[:2]}-{str(self.hour + 1)[:2]}"]
-            
+
             get_lessons = temp_dict[self.wd]
-            
+
             print('Τι μαθήματα υπάρχουν αυτοί την στιγμή: ')
-            
-            for lesson in get_lessons:
-                print(f"  - {lesson}") 
-    
-            # Constant is THICC, save user's memory.
+
+            if len(get_lessons) == 0:
+                print('Δεν υπάρχει κάποιο μάθημα.')
+            else:
+                for lesson in get_lessons:
+                    print(f"  - {lesson}")
+
+                # Constant is THICC, save user's memory.
             del temp_dict
             gc.collect()
             gc.collect()
-            
+
         else:
             print("Είναι Σαββατοκύριακο χαζούλη")
-        
-        
+
     def run(self) -> None:
         """
             Main Program
@@ -113,3 +126,8 @@ class Scheduler:
             self.print_status()
             self.grab_lesson()
             sleep(3600)
+
+
+if __name__ == "__main__":
+    app = Scheduler()
+    app.run()

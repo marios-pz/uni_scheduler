@@ -16,7 +16,7 @@ services:
       MONGO_INITDB_DATABASE: semesters
 
     volumes:
-      - ./app/mongo:/data/db
+      - ./mongo:/data/db
 
     networks:
       - mongo-python

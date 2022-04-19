@@ -8,9 +8,11 @@ setup guide:
 -- To use the CLI --
 * `python3 cli.py`
 <br />
+
 -- To host the webapp --
-* `cd /webapp/`
-* `python3 server.py` # port has been changed to 99
+  - `cd /webapp/`
+  - `python3 server.py` # port has been changed to 99
+
 
 DISCLAIMER: Both Applications are in Greek
 

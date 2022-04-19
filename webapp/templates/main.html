@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="../static/style.css">
     </head>
     <body onload="startTime()">
-        <p class="logo">Uniwa Scheduler <img src="../static/ΕΜΒΛΗΜΑ-ΕΓΧΡΩΜΟ.png"></p>
+        <p class="logo">Uniwa Scheduler</p>
         <div id="background">
             {% block content %}
                 {% if day not in ['Saturday', 'Sunday'] %}
@@ -45,6 +45,9 @@
     </body>
     <script src="../static/script.js"></script>
     <bottom>
-        @created by owner of the repo, logo credits goes to University of West Attica
+        <i>@Created by οwner of the repo</i><br />
+        Ο Δημιουργός δεν παίρνει καμία ευθήνη αν ένα μάθημα είναι λάθος.<br />
+        Αν δύο μαθήματα είναι στην ίδια αίθουσα την ίδια ώρα επικοινωνήστε με τον καθηγητή. <br />
+        Το πρόγραμμα ισχύει για το <b><u>Εαρινό Πρόγραμμα 2022</u></b> και <b><u>δεν</u></b> θα ξανά ενημερωθεί.
     </bottom>
 </html>

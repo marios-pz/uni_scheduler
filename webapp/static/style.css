@@ -10,15 +10,7 @@ body {
 
 .logo {
     font-size: 240%;
-    margin-top: -5%;
-}
-
-
-.logo img {
-    position: relative;
-    width: 15%;
-    height: 15%;
-    top: 45px;
+    margin-top: -1%;
 }
 
 .question {
@@ -50,7 +42,7 @@ body {
     margin-bottom: 40%;
 }
 
-/* The fact that I unironically still remember bottom makes me boomer web dev */
 bottom {
-    float:right;
+    float:left;
+    text-align: left;
 }

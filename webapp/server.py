@@ -1,11 +1,11 @@
 from flask import Flask, render_template
-from courses import PROGRAM
 from time import sleep
 from datetime import datetime
 from calendar import day_name
+from json import load
+from pymongo import MongoClient
 
 app = Flask(__name__)
-
 
 @app.route('/')
 def hello():
@@ -20,8 +20,22 @@ def hello():
     if wd not in ['Sunday', 'Sunday']:
 
         try:
-            temp_dict = PROGRAM[f"{str(hour)[:2]}-{str(hour + 1)[:2]}"]
-            get_lessons = temp_dict[wd]
+            client = MongoClient(f"mongodb+srv://scheduler:password123!@cluster0.bl40b.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+            db = client['semesters']
+            collection = db['temp']
+
+            lessons = list()
+
+            key_query = str(hour)[:2] + '-' + str(hour + 1)[:2]            
+
+            for x in collection.find():
+                for item in x:
+                    if item == key_query:
+                        lessons.extend(x[key_query][wd])
+                        break
+
+            get_lessons = lessons if len(lessons) != 0 else ['Κενό!']
+
         except KeyError:
             get_lessons = ['Καληνύχτα Συνάδελδε, δεν υπάρχουν άλλα μαθήματα.']
 
@@ -31,4 +45,4 @@ def hello():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port='99')
+    app.run(host='0.0.0.0', port='99', debug=True)

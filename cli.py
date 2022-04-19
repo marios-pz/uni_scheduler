@@ -5,8 +5,6 @@ import pymongo
 
 import datetime
 
-import gc
-
 from time import sleep
 
 from random import randint
@@ -14,40 +12,34 @@ from random import randint
 from calendar import day_name
 
 from data import (
-    PORT,
-    PROGRAM,
-    IP,
     USERNAME,
     PASSWORD
 )
 
 from pymongo import MongoClient
-import certifi
-
-ca = certifi.where()
 
 
-def get_db(db_link, db_name):
-    """
-        Searches for X database else it creates one
-        db_link: mongodb link with credentials
-        db_name: name of the database
-    """
-    client = MongoClient(db_link, tlsCAFile=ca)
-    return client[db_name]
-
-
-def create_tmp_clt(db):
-    """
-        creates a dummie collection on the database that has been passed
-    """
-    return db['temp']
-
+# Colours
+bold = "\033[1m"
+endc = "\033[0m" 
+okblue = "\033[94m"
+okcyan = "\033[96m"
+black_t = "1033[30m"
+red_t = "\033[31m"
+green_t = "\033[32m"
+yellow_t = "\033[33m"
+blue_t = "\033[34m"
+magenta_t = "\033[35m"
+cyan_t = "\033[36m"
+white_t = "\033[37m"
 
 class Scheduler:
 
     def __init__(self) -> None:
-        self.db = self.create_table()
+
+        self.client = pymongo.MongoClient(f"mongodb+srv://{USERNAME}:{PASSWORD}@cluster0.bl40b.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+        self.db = self.client['semesters']
+        self.collection = self.db['temp']
         self.now = datetime.datetime.now()
         self.year = self.now.year
         self.month = self.now.month
@@ -57,26 +49,13 @@ class Scheduler:
         self.second = self.now.second
         self.wd = day_name[self.now.weekday()]
 
-    @classmethod
-    def create_table(self) -> pymongo.collection.Collection:
-        """
-            Troll feature
-            
-            Friendly tip, dont bother deleting the duplicate collections, just close the docker app 🧠
-        """
-        try:
-            database_name = 'temp_data'
-            database = get_db(f'mongodb://{USERNAME}:{PASSWORD}@{IP}:{PORT}', database_name)
-            collection = create_tmp_clt(database)
-
-        except pymongo.errors.BulkWriteError:
-            # print("Collection duplicate found, creating a clone.")
-            database_name = f'temp_data{randint(0, 128)}'
-            database = get_db(f'mongodb://{USERNAME}:{PASSWORD}@{IP}:{PORT}', database_name)
-            collection = create_tmp_clt(database)
-
-        # print(collection.find_one())
-        return collection
+        self.greek_dict = {
+                'Monday': 'Δευτέρα',
+                'Tuesday': 'Τρίτη',
+                'Wednesday': 'Τετάρτη',
+                'Thursday': 'Πέμπτη',
+                'Friday': 'Παρασκευή'
+            }
 
     def get_time(self) -> None:
         self.now = datetime.datetime.now()
@@ -90,44 +69,110 @@ class Scheduler:
 
     def print_status(self) -> None:
         self.get_time()
-        # self.wd = 'Monday' # Debugging
-        print(f"Σήμερα είναι {self.wd} {self.day}/{self.month}/{self.year}")
-        print(f"Ώρα {self.hour}:{self.minute}:{self.second}")
+        print(yellow_t + f"Σήμερα είναι {self.greek_dict[self.wd]} {self.day}/{self.month}/{self.year}")
+        print(f"Ώρα {self.hour}:{self.minute}:{self.second}" + endc)
 
-    def grab_lesson(self) -> None:
+    def grab_data(self) -> None:
+        self.print_status()
 
         if self.wd not in ['Saturday', 'Sunday']:
 
-            temp_dict = PROGRAM[f"{str(self.hour)[:2]}-{str(self.hour + 1)[:2]}"]
+            lessons = list()
 
-            get_lessons = temp_dict[self.wd]
+            key_query = str(self.hour)[:2] + '-' + str(self.hour + 1)[:2]            
 
-            print('Τι μαθήματα υπάρχουν αυτοί την στιγμή: ')
+            for x in self.collection.find():
+                for item in x:
+                    if item == key_query:
+                        lessons.extend(x[key_query][self.wd])
+                        break
 
-            if len(get_lessons) == 0:
-                print('Δεν υπάρχει κάποιο μάθημα.')
+            print(okcyan + '\nΤι μαθήματα υπάρχουν αυτή την στιγμή?' + endc)
+            if len(lessons) == 0:
+                print(red_t + 'Κενό' + endc)
             else:
-                for lesson in get_lessons:
-                    print(f"  - {lesson}")
-
-                # Constant is THICC, save user's memory.
-            del temp_dict
-            gc.collect()
-            gc.collect()
-
+                for lesson in lessons:
+                    print( green_t + f'- {lesson}' + endc )
+    
         else:
-            print("Είναι Σαββατοκύριακο χαζούλη")
+            print( red_t + "\nΕίναι Σαββατοκύριακο συνάδελφε.\n" + green_t + "Καλά να περνάς." + endc)
 
-    def run(self) -> None:
+    def run(self, flags=[]) -> None:
         """
             Main Program
         """
-        while True:
-            self.print_status()
-            self.grab_lesson()
-            sleep(3600)
+
+        for item in flags:
+
+            if item == 'help':
+                print( yellow_t + """
+
+Execution:
+$ python cli.py (-o || -l)
+
+flags:
+
+    help: Εμφανίζει ότι βλέπεται.
 
 
+    -l: Το πρόγραμμα θα παραμείνει ανοικτό και θα ενημερώνει ανά κάθε 1 ώρα
+
+    -ο: Το πρόγραμμα τρέχει μία φορά
+
+
+    Καλά να περνάς!
+
+                """ + endc)
+                raise SystemExit
+
+            elif item == 'once':
+                self.grab_data()
+
+            elif item == 'loop':
+
+                try:
+                    while True:
+                        self.grab_data()
+                        print(yellow_t + '\nΤο πρόγραμμα θα ξανά ενημερώσει σε μία ώρα, \033[31mΜΗΝ\033[0m κλείσετε το πρόγραμμα.' + endc)
+                        sleep(3600)
+                except KeyboardInterrupt:
+                    print(green_t + '\nΤα λέμε!' + endc)
+
+                    
+from sys import argv
 if __name__ == "__main__":
+
+    flag_list = list()
+
+    for arg in argv[1:]:
+        
+        if arg == '-help':
+            flag_list.append('help')
+            break
+
+        elif arg == '-l':
+            flag_list.append('loop')
+            break
+
+        elif arg == '-o':
+            flag_list.append('once')
+            break
+
+        elif arg in ['help', 'o', 'l']:
+            print(red_t + "Ξέσασες να βάλεις '-' μπροστά στα flags." + endc)
+
+        else:
+            print(red_t + f"'{arg}' δεν είναι σωστό flag" + endc)
+            raise SystemExit
+
+
     app = Scheduler()
-    app.run()
+
+    if len(argv[1:]) == 0:
+        app.run(flags=['help'])
+
+    elif len(argv[1:]) >= 2:
+        print(red_t + "Υπερβολική χρήση flag." + endc)
+        raise SystemExit
+    else:
+        app.run(flags=flag_list)

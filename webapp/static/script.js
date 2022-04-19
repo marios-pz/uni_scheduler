@@ -47,7 +47,7 @@ function startTime() {
   try{
       if(m > 0)
       {
-          document.getElementById('clock').innerHTML =  output + '<br />' + "έχεις αργήσει " + m + " λεπτά και " + s + " δεύτερα.";
+          document.getElementById('clock').innerHTML =  output + '<br />' + "έχεις αργήσει " + m + " λεπτά!";
       }
       else
       {

@@ -12,7 +12,6 @@ setup guide:
 * `cd /webapp/`
 * `python3 server.py` # port has been changed to 99
 
-
 DISCLAIMER: Both Applications are in Greek
 
 WEBAPP: <br />

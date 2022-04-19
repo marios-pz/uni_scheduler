@@ -11,5 +11,5 @@ CLI: <br />
 ![cli](https://user-images.githubusercontent.com/30930688/164053519-81df953a-e42b-4932-934a-cce4b5d9073c.png) <br />
 
 
-DATABASED USED: <br />
+DATABASE USED: <br />
 ![mongodb](https://webimages.mongodb.com/_com_assets/cms/kuzt9r42or1fxvlq2-Meta_Generic.png) <br />

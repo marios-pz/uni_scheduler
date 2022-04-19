@@ -1,14 +1,10 @@
 # Uniwa Scheduler 
+Μπορείς να ενημερώνεσαι στιγμιαία για το τι μαθήματα έχεις εκείνη την ώρα και την αίθουσα του χωρίς να ρωτάς και να παίρνεις απάντηση το επόμενο εξάμηνο! 🙂
 
-Σε ενημερώνει κάθε μία ώρα τα ενεργά μαθήματα σε όλα τα εξάμηνα και τις αίθουσες τους ώστε να μην μυρίζεις τα νύχια σου. 🙂
+DISCLAIMER: Both Applications are in Greek
 
-TODO:
-* CLI (Completed)
-* WebApp version (Completed)
-* Support All semesters
+![web](https://user-images.githubusercontent.com/30930688/163730102-f6919906-e34c-41f0-b2ce-a6e071dfe30b.png)
 
-When the database is ready both applications will share the same mongodb <br />
-(DISCLAIMER: Actual website is in Greek, this is HTML edited)
-![image](https://user-images.githubusercontent.com/30930688/163730102-f6919906-e34c-41f0-b2ce-a6e071dfe30b.png)
+![cli](https://user-images.githubusercontent.com/30930688/164053519-81df953a-e42b-4932-934a-cce4b5d9073c.png)
 
-![docker](https://i.morioh.com/4ced3d48df.png)
+![mongodb](https://webimages.mongodb.com/_com_assets/cms/kuzt9r42or1fxvlq2-Meta_Generic.png)

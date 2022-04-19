@@ -4,9 +4,11 @@
 setup guide:
 * `go to uni_scheduler directory`
 * `pip install -r requirements.txt`
+
+-- To use the CLI -- 
 <br />
--- To use the CLI -- <br />
 * `python3 cli.py`
+
 <br />
 
 -- To host the webapp --

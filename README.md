@@ -5,7 +5,7 @@ setup guide:
 * `go to uni_scheduler directory`
 * `pip install -r requirements.txt`
 <br />
--- To use the CLI --
+-- To use the CLI -- <br />
 * `python3 cli.py`
 <br />
 

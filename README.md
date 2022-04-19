@@ -1,6 +1,16 @@
 # Uniwa Scheduler 
 Μπορείς να ενημερώνεσαι στιγμιαία για το τι μαθήματα έχεις εκείνη την ώρα και την αίθουσα του χωρίς να ρωτάς και να παίρνεις απάντηση το επόμενο εξάμηνο! 🙂
 
+setup guide:
+* `go to uni_scheduler directory`
+* `pip install -r requirements.txt`
+-- To use the CLI --
+* `python3 cli.py`
+-- To host the webapp --
+* `cd /webapp/`
+* `python3 server.py` # port has been changed to 99
+
+
 DISCLAIMER: Both Applications are in Greek
 
 WEBAPP: <br />

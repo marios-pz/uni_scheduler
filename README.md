@@ -4,8 +4,10 @@
 setup guide:
 * `go to uni_scheduler directory`
 * `pip install -r requirements.txt`
+<br />
 -- To use the CLI --
 * `python3 cli.py`
+<br />
 -- To host the webapp --
 * `cd /webapp/`
 * `python3 server.py` # port has been changed to 99

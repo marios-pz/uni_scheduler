@@ -4,6 +4,10 @@ from datetime import datetime
 from calendar import day_name
 from json import load
 from pymongo import MongoClient
+from pymongo.errors import ServerSelectionTimeoutError
+import certifi
+ca = certifi.where()
+
 
 app = Flask(__name__)
 
@@ -20,7 +24,7 @@ def hello():
     if wd not in ['Sunday', 'Sunday']:
 
         try:
-            client = MongoClient(f"mongodb+srv://scheduler:password123!@cluster0.bl40b.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+            client = MongoClient("mongodb+srv://scheduler:macaroni13@cluster0.bl40b.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", tlsCAFile=ca)
             db = client['semesters']
             collection = db['temp']
 
@@ -37,7 +41,10 @@ def hello():
             get_lessons = lessons if len(lessons) != 0 else ['Κενό!']
 
         except KeyError:
-            get_lessons = ['Καληνύχτα Συνάδελδε, δεν υπάρχουν άλλα μαθήματα.']
+            get_lessons = ['Δεν υπάρχουν άλλα μαθήματα.']
+        
+        except ServerSelectionTimeoutError as SET:
+            get_lessons = ['Αδύνατη σύνδεση με την βάση.', SET]  
 
         return render_template('main.html', lessons=get_lessons, day=wd)
     else:

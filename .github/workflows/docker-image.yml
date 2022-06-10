@@ -24,5 +24,7 @@ jobs:
       
       - 
         name: Running Script
-        run: echo -e "running script!"
+        run : |
+          chmod +x ./push_images.sh \
+          bash ./push_images.sh
      

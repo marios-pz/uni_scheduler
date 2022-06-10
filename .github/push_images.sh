@@ -10,6 +10,4 @@ docker buildx create --name multi_scheduler
 
 docker buildx use multi_scheduler
 
-docker buildx inspect
-
-docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 linux/arm/v6 -t mariospapaz/uni_scheduler:$VERSION --push .
+docker buildx build --platform linux/arm/v6,linux/amd64,linux/arm64,linux/arm/v7 -t mariospapaz/uni_scheduler:${VERSION} --push .

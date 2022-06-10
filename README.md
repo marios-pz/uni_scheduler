@@ -15,6 +15,10 @@ setup guide:
   - `cd /webapp/`
   - `python3 server.py` # port has been changed to 99
 
+-- To host the app under docker --
+  - You can use the suggested docker-compose yml file (`docker-compose up -d`)
+  - or build and run the image using the provided Dockerfile (`docker build -t unischeduler .`)
+<br />
 
 DISCLAIMER: Both Applications are in Greek
 

@@ -1,0 +1,25 @@
+version: "3"
+
+networks:
+  primaryy:
+    external: false 
+
+services:
+  uni_scheduler:
+    image: unischeduler:latest
+    container_name: uni_scheduler
+    build:
+        context: .
+    deploy:
+        resources:
+            limits:
+              cpus: 0.5
+              memory: 32M
+    restart: unless-stopped
+    networks:
+      - primaryy
+    ports:
+      - 99:99
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro

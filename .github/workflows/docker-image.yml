@@ -24,7 +24,5 @@ jobs:
       
       - 
         name: Running Script
-        run : |
-          pwd \
-          ls -a 
+        run : chmod +x ./push_images.sh && bash ./push_images.sh
      

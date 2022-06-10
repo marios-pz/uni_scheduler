@@ -37,7 +37,7 @@ class Scheduler:
 
     def __init__(self) -> None:
 
-        self.client = pymongo.MongoClient(f"mongodb+srv://{USERNAME}:{PASSWORD}@cluster0.bl40b.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+        self.client = MongoClient("mongodb+srv://scheduler:macaroni13@cluster0.bl40b.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", tlsCAFile=ca)
         self.db = self.client['semesters']
         self.collection = self.db['temp']
         self.now = datetime.datetime.now()

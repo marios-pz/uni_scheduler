@@ -9,7 +9,6 @@ setup guide:
 * `pip install -r requirements.txt`
 
 -- To use the CLI --
-`<br />`
 
 * `python3 cli.py`
 

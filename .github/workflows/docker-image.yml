@@ -25,6 +25,6 @@ jobs:
       - 
         name: Running Script
         run : |
-          chmod +x ./push_images.sh \
-          bash ./push_images.sh
+          chmod +x ./.github/push_images.sh \
+          bash ./.github/push_images.sh
      

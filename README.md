@@ -22,7 +22,7 @@ setup guide:
 
 -- To host the app under docker --
 
-- `docker pull mariospapaz/uni_scheduler`
+- `docker pull mariospapaz/uni_scheduler:1.0`
 - `docker run -d -p 99:99 mariospapaz/uni_scheduler:1.0`
 
 DISCLAIMER: Both Applications are in Greek

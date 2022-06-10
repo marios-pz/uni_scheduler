@@ -16,3 +16,5 @@ cp -r webapp/* .
 
 CMD python3 server.py && \
 sleep infinity
+
+HEALTHCHECK CMD /DockerHealthcheck.sh

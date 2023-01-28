@@ -1,7 +1,8 @@
-# Uniwa Scheduler
+# DEPRECATED
+  UPDATING THE SCHEDULE MANUALLY IS TEDIOUS AND REQUIRES MAINTAINING AND THERE IS NO SOURCE FOR AUTOMATION
+  WE WILL WORK ON A DIFFERENT BUT SIMILAR PROJECT NAMED ECLASS-UTILS
 
-Μπορείς να ενημερώνεσαι στιγμιαία για το τι μαθήματα έχεις εκείνη την ώρα και την αίθουσα του χωρίς να ρωτάς και να παίρνεις απάντηση το επόμενο εξάμηνο! 🙂
-
+## Uniwa Scheduler
 
 setup guide:
 
